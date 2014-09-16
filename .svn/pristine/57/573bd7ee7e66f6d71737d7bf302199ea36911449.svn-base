@@ -1,0 +1,172 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.cars.ss</groupId>
+	<artifactId>commons-cache</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+	<name>Commons Cache Library</name>
+	<properties>
+		<coherence.version>12.1.2-0-0</coherence.version>
+		<spring.version>4.0.3.RELEASE</spring.version>
+	</properties>
+	<repositories>
+		<repository>
+			<id>cars</id>
+			<name>Cars Release</name>
+			<url>http://repository.cars.com/nexus/content/groups/cars</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>Central</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>cars-releases</id>
+			<name>Internal Releases</name>
+			<url>http://repository.cars.com/nexus/content/repositories/cars-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>cars-snapshots</id>
+			<name>Internal Snapshots</name>
+			<url>http://repository.cars.com/nexus/content/repositories/cars-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>cars</id>
+			<name>Cars Release</name>
+			<url>http://repository.cars.com/nexus/content/groups/cars</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://repo1.maven.org/maven2</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.oracle.coherence</groupId>
+			<artifactId>coherence</artifactId>
+			<version>${coherence.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.oracle.coherence</groupId>
+				<artifactId>maven-gar-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<generatePof>false</generatePof>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.oracle.weblogic</groupId>
+				<artifactId>weblogic-maven-plugin</artifactId>
+				<version>12.1.2-0-0</version>
+				<configuration>
+					<adminurl>t3://localhost:7001</adminurl>
+					<user>weblogic</user>
+					<password>weblogic123</password>
+					<!--The location of the file or directory to be deployed -->
+					<source>${project.build.directory}/${project.build.finalName}.${project.packaging}</source>
+					<!--The target servers where the application is deployed -->
+					<targets>wls_cluster_1</targets>
+					<verbose>true</verbose>
+					<name>${project.build.finalName}</name>
+					<altwlsappdd></altwlsappdd>
+				</configuration>
+				<executions>
+					<!--Deploy the application to the server -->
+					<execution>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+
