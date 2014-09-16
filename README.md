@@ -19,12 +19,17 @@ A Coherence cache manager for Spring's Cache Abstraction. Read the Spring docume
     
 <h3>Usage<h3>
 
-Simply add the below bean in your Spring context XML
+Simply add the below bean in your Spring context XML (or a Java config if you prefer)
 
 ```xml
   <bean id="cacheManager" class="com.cars.cache.coherence.CoherenceCacheManager">
   		<constructor-arg ref="cacheConfig" />
   </bean>
+```
+If you want to use a different bean id than 'cacheManager', make sure you let Spring know using the 'cache-manager' property of the cache config.
+
+```xml
+ <cache:annotation-driven cache-manager="myCacheManager"/>
 ```
 
 
