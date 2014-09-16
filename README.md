@@ -26,11 +26,13 @@ Simply add the below bean in your Spring context XML (or a Java config if you pr
   		<constructor-arg ref="cacheConfig" />
   </bean>
 ```
-If you want to use a different bean id than 'cacheManager', make sure you let Spring know using the 'cache-manager' property of the cache config.
+If you want to use a different bean id than 'cacheManager', make sure you edit the 'cache-manager' property of the cache config element.
 
 ```xml
  <cache:annotation-driven cache-manager="myCacheManager"/>
 ```
+
+Lastly, make sure you have the coherence cache-config and pof-config files in your classpath
 
 <h3>Build<h3>
 
