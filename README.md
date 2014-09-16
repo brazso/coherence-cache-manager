@@ -22,7 +22,7 @@ A Coherence cache manager for Spring's Cache Abstraction. Read the Spring docume
 Simply add the below bean in your Spring context XML
 
 ```xml
-  <bean id="cacheManager" class="com.cars.ss.commons.cache.CoherenceCacheManager">
+  <bean id="cacheManager" class="com.cars.cache.coherence.CoherenceCacheManager">
   		<constructor-arg ref="cacheConfig" />
   </bean>
 ```
