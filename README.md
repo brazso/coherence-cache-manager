@@ -16,7 +16,16 @@ A Coherence cache manager for Spring's Cache Abstraction. Read the Spring docume
     Use <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/cache/annotation/CachePut.html">CachePut</a> instead. The implementation will look into key mappings
     from CoherenceConfig to resolve a key for each entry in the
     collection return type.
+    
+<h3>Usage<h3>
 
+Simply add the below bean in your Spring context XML
+
+```xml
+  <bean id="cacheManager" class="com.cars.ss.commons.cache.CoherenceCacheManager">
+  		<constructor-arg ref="cacheConfig" />
+  </bean>
+```
 
 
 
