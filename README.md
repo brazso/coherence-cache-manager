@@ -32,5 +32,8 @@ If you want to use a different bean id than 'cacheManager', make sure you let Sp
  <cache:annotation-driven cache-manager="myCacheManager"/>
 ```
 
+<h3>Build<h3>
+
+Make sure you have the Coherence libraries you are using in you local maven repo to build this project.
 
 
