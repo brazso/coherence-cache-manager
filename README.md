@@ -34,6 +34,6 @@ If you want to use a different bean id than 'cacheManager', make sure you let Sp
 
 <h3>Build<h3>
 
-Make sure you have the Coherence libraries you are using in you local maven repo to build this project.
+Make sure you have the necessary Coherence libraries your local maven repo to build this project. You might need to edit the Coherence dependency in the pom file as well
 
 
