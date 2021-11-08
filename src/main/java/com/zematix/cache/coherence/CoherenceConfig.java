@@ -1,4 +1,4 @@
-package com.cars.cache.coherence;
+package com.zematix.cache.coherence;
 
 import java.util.Collection;
 import java.util.Map;

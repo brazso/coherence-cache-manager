@@ -1,6 +1,9 @@
 coherence-cache-manager
 =======================
 
+This project is a fork of <a href="https://github.com/dtmistry/coherence-cache-manager">
+https://github.com/dtmistry/coherence-cache-manager</a>. By default this project depends on Spring 4.3.13 and Oracle Coherence 12.2.1.3.0. Because of Spring 4.3 dependency, some new abstract methods of Spring Cache must have been implemented here. Coherence 12 cannot be reached from public maven repository. Use a later CE version instead, if you do not have it in local.
+
 A Coherence cache manager for Spring's Cache Abstraction. Read the Spring documentation <a href="http://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/html/cache.html">here</a> to understand how the abstraction work and the annotations that enable it.
 
 <h3>Notes</h3>
@@ -26,7 +29,7 @@ Simply add the below bean in your Spring context XML (or a Java config if you pr
   		<constructor-arg ref="cacheConfig" />
   </bean>
 ```
-If you want to use a different bean id than 'cacheManager', make sure you edit the 'cache-manager' property of the cache config element.
+Unless 'constructor-arg' element is added, DefaultCoherenceConfig project class is used. If you want to use a different bean id than 'cacheManager', make sure you edit the 'cache-manager' property of the cache config element.
 
 ```xml
  <cache:annotation-driven cache-manager="myCacheManager"/>
@@ -37,5 +40,3 @@ Lastly, make sure you have the coherence cache-config and pof-config files in yo
 <h3>Build<h3>
 
 Make sure you have the necessary Coherence libraries in your local maven repo to build this project. You might need to edit the Coherence dependency in the pom file as well
-
-

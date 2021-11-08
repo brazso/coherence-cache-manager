@@ -1,10 +1,11 @@
-package com.cars.cache.coherence;
+package com.zematix.cache.coherence;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,6 +109,21 @@ public class CoherenceCache implements Cache {
 	}
 
 	@Override
+	public <T> T get(Object key, Callable<T> valueLoader) {
+		T value = (T) this.cache.get(key);
+		if (value == null) {
+			try {
+				value = valueLoader.call();
+			}
+			catch(Exception ex) {
+				throw new ValueRetrievalException(key, valueLoader, ex);
+			}
+			put(key, (Object) value);
+		}
+		return value;
+	}
+
+	@Override
 	public void put(Object key, Object value) {
 		if (value != null) {
 			if (logger.isDebugEnabled()) {
@@ -152,6 +168,12 @@ public class CoherenceCache implements Cache {
 		if (!toCache.isEmpty()) {
 			this.cache.putAll(toCache);
 		}
+	}
+
+	@Override
+	public ValueWrapper putIfAbsent(Object key, Object value) {
+		boolean set = this.cache.putIfAbsent(key, value) == null;
+		return (set ? null : get(key));
 	}
 
 	@Override
